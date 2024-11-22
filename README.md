@@ -1,8 +1,10 @@
-# React + Vite
+Admin Panel in React.js
+This project is a customizable Admin Panel built using React.js. The panel includes essential features for managing and visualizing application data with an intuitive user interface.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📋 Features
+Dashboard: Overview of key metrics and statistics.
+User Management: Add, edit, and delete users.
+Role-Based Access Control: Manage permissions based on user roles.
+Data Visualization: Charts and graphs for analytics.
+Responsive Design: Optimized for desktop and mobile.
+Dark Mode: Toggle between light and dark themes.
