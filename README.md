@@ -49,5 +49,9 @@ This project is a customizable **Admin Panel** built using React.js. The panel i
 ## 📂 Project Structure
 
 
-![Dashboard View](https://github.com/yashpanchal10110/Admin-Panel/tree/main/ss)
+![Dashboard View](https://github.com/yashpanchal10110/Admin-Panel/blob/main/ss/Screenshot_22-11-2024_124355_localhost.jpeg)
+![Dashboard View](https://github.com/yashpanchal10110/Admin-Panel/blob/main/ss/Screenshot_22-11-2024_124433_localhost.jpeg)
+![Dashboard View](https://github.com/yashpanchal10110/Admin-Panel/blob/main/ss/Screenshot_22-11-2024_124444_localhost.jpeg)
+![Dashboard View](https://github.com/yashpanchal10110/Admin-Panel/blob/main/ss/Screenshot_22-11-2024_12455_localhost.jpeg)
+![Dashboard View](https://github.com/your-username/your-repo/raw/main/images/dashboard.png)
 
