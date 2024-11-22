@@ -48,13 +48,6 @@ This project is a customizable **Admin Panel** built using React.js. The panel i
 
 ## 📂 Project Structure
 
-```
 
-## 📖 Usage
-
-## 🖼️ Screenshots
-
-_Add screenshots of your admin panel here to showcase the interface._
-
----
+![Dashboard View](https://github.com/yashpanchal10110/Admin-Panel/blob/main/ss/Screenshot_22-11-2024_124318_localhost.jpeg)
 
