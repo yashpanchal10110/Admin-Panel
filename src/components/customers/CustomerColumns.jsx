@@ -32,6 +32,16 @@ export const customerColumns = [
     accessorKey: 'phone',
   },
   {
+    id: 'serviceType',
+    header: 'Service Type',
+    accessorKey: 'serviceType',
+    cell: ({ getValue }) => (
+      <span className="px-2 py-1 text-sm font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+        {getValue()}
+      </span>
+    ),
+  },
+  {
     id: 'registrationDate',
     header: 'Registration Date',
     accessorKey: 'joinDate',
@@ -42,6 +52,25 @@ export const customerColumns = [
     header: 'Status',
     accessorKey: 'status',
     cell: ({ getValue }) => <StatusBadge status={getValue()} />,
+  },
+  {
+    id: 'bookingStatus',
+    header: 'Booking Status',
+    accessorKey: 'bookingStatus',
+    cell: ({ getValue }) => {
+      const status = getValue();
+      const statusColors = {
+        pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+        complete: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+        cancel: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+      };
+      
+      return (
+        <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[status]}`}>
+          {status.charAt(0).toUpperCase() + status.slice(1)}
+        </span>
+      );
+    },
   },
   {
     id: 'actions',

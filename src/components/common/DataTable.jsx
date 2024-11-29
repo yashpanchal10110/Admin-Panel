@@ -42,25 +42,7 @@ function DataTable({
 
   return (
     <div className="w-full">
-      {searchable && (
-        <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {table.getAllLeafColumns().map(column => {
-            if (!column.getCanFilter()) return null;
-            
-            return (
-              <div key={column.id}>
-                <input
-                  type="text"
-                  placeholder={`Search ${column.id}...`}
-                  value={column.getFilterValue() ?? ''}
-                  onChange={e => column.setFilterValue(e.target.value)}
-                  className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                />
-              </div>
-            );
-          })}
-        </div>
-      )}
+      
 
       <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">

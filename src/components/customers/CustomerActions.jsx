@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
-import { FaEllipsisV, FaEdit, FaBan, FaTrash } from 'react-icons/fa';
+import { FaEllipsisV, FaEdit, FaTrash } from 'react-icons/fa';
 
-function CustomerActions({ customer, onEdit, onBlock, onDelete }) {
+function CustomerActions({ customer, onEdit, onDelete }) {
   const handleDelete = () => {
     if (window.confirm('Are you sure you want to delete this customer?')) {
       onDelete(customer.id);
@@ -25,19 +25,6 @@ function CustomerActions({ customer, onEdit, onBlock, onDelete }) {
                 } flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-200`}
               >
                 <FaEdit className="mr-2" /> Edit Details
-              </button>
-            )}
-          </Menu.Item>
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                onClick={() => onBlock(customer)}
-                className={`${
-                  active ? 'bg-gray-100 dark:bg-gray-700' : ''
-                } flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-200`}
-              >
-                <FaBan className="mr-2" />
-                {customer.status === 'active' ? 'Block' : 'Unblock'} Customer
               </button>
             )}
           </Menu.Item>

@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 import ProvidersPage from '../pages/ProvidersPage';
-import ProviderProfile from '../pages/ProviderProfile';
+import ProviderDetailsPage from '../pages/providers/ProviderDetailsPage';
+import WorkHistoryPage from '../pages/providers/WorkHistoryPage';
 import ProviderRequestsPage from '../pages/ProviderRequestsPage';
 import ServicesPage from '../pages/ServicesPage';
 import CustomersPage from '../pages/CustomersPage';
@@ -19,7 +20,8 @@ function MainContent({ sidebarOpen }) {
           <Route path="/" element={<Dashboard />} />
           <Route path="/providers" element={<ProvidersPage />} />
           <Route path="/providers/requests" element={<ProviderRequestsPage />} />
-          <Route path="/providers/:id" element={<ProviderProfile />} />
+          <Route path="/providers/:id" element={<ProviderDetailsPage />} />
+          <Route path="/providers/:id/work-history" element={<WorkHistoryPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/customers" element={<CustomersPage />} />
           <Route path="/customers/:id" element={<CustomerDetailsPage />} />

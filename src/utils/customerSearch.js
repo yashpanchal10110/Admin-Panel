@@ -1,22 +1,10 @@
-import Fuse from 'fuse.js';
+export const searchCustomers = (searchIndex, searchTerm) => {
+  if (!searchTerm) return searchIndex;
 
-export function createCustomerSearchIndex(customers) {
-  return new Fuse(customers, {
-    keys: [
-      'id',
-      'name',
-      'email',
-      'address',
-      'serviceType',
-      'phone'
-    ],
-    threshold: 0.3,
-    ignoreLocation: true,
-    shouldSort: true,
-  });
-}
-
-export function searchCustomers(searchIndex, searchTerm) {
-  if (!searchTerm) return searchIndex._docs;
-  return searchIndex.search(searchTerm).map(result => result.item);
-}
+  const lowerCasedTerm = searchTerm.toLowerCase();
+  return searchIndex.filter((customer) =>
+    ['id', 'name', 'email', 'address', 'phone', 'bookingStatus'].some((key) =>
+      customer[key]?.toString().toLowerCase().includes(lowerCasedTerm)
+    )
+  );
+};

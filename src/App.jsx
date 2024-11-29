@@ -10,6 +10,7 @@ import { ServicesProvider } from './context/ServicesContext';
 import { CustomersProvider } from './context/CustomersContext';
 import { RewardsProvider } from './context/RewardsContext';
 import { ConfigProvider } from './context/ConfigContext';
+import { WorkHistoryProvider } from './context/WorkHistoryContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,13 +42,15 @@ function App() {
             <ProvidersProvider>
               <ServicesProvider>
                 <CustomersProvider>
-                  <Router>
-                    <div className="flex h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
-                      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-                      <MainContent sidebarOpen={sidebarOpen} />
-                    </div>
-                  </Router>
-                  <Toaster position="top-right" />
+                  <WorkHistoryProvider>
+                    <Router>
+                      <div className="flex h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+                        <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+                        <MainContent sidebarOpen={sidebarOpen} />
+                      </div>
+                    </Router>
+                    <Toaster position="top-right" />
+                  </WorkHistoryProvider>
                 </CustomersProvider>
               </ServicesProvider>
             </ProvidersProvider>

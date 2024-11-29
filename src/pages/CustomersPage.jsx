@@ -1,22 +1,22 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
+import { FaSearch, FaFileExcel } from 'react-icons/fa';
+import { toast } from 'react-hot-toast';
 import { useCustomers } from '../context/CustomersContext';
 import CustomerTable from '../components/customers/CustomerTable';
 import CustomerForm from '../components/customers/CustomerForm';
-import { FaSearch } from 'react-icons/fa';
-import { createCustomerSearchIndex, searchCustomers } from '../utils/customerSearch';
-import toast from 'react-hot-toast';
+import { exportToExcel } from '../utils/excelExport';
 
 function CustomersPage() {
-  const { customers, updateCustomer, deleteCustomer, blockCustomer } = useCustomers();
+  const { customers, updateCustomer, deleteCustomer } = useCustomers();
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState(null);
 
-  const searchIndex = useMemo(() => createCustomerSearchIndex(customers), [customers]);
-  const filteredCustomers = useMemo(() => 
-    searchCustomers(searchIndex, searchTerm),
-    [searchIndex, searchTerm]
+  const filteredCustomers = customers.filter((customer) =>
+    ['id', 'name', 'address', 'bookingStatus'].some((key) =>
+      customer[key]?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    )
   );
 
   const handleEdit = (customer) => {
@@ -24,18 +24,9 @@ function CustomersPage() {
     setIsModalOpen(true);
   };
 
-  const handleBlock = async (customer) => {
-    try {
-      await blockCustomer(customer.id);
-      toast.success(`Customer ${customer.status === 'active' ? 'blocked' : 'unblocked'} successfully`);
-    } catch (error) {
-      toast.error('Failed to update customer status');
-    }
-  };
-
   const handleDelete = async (customerId) => {
     try {
-      await deleteCustomer(customerId);
+      deleteCustomer(customerId);
       toast.success('Customer deleted successfully');
     } catch (error) {
       toast.error('Failed to delete customer');
@@ -44,7 +35,7 @@ function CustomersPage() {
 
   const handleSubmit = async (data) => {
     try {
-      await updateCustomer(editingCustomer.id, data);
+      updateCustomer(editingCustomer.id, data);
       toast.success('Customer updated successfully');
       setIsModalOpen(false);
       setEditingCustomer(null);
@@ -53,13 +44,52 @@ function CustomersPage() {
     }
   };
 
+  const handleExport = () => {
+    const exportData = filteredCustomers.map(({
+      id,
+      name,
+      email,
+      phone,
+      address,
+      joinDate,
+      bookingStatus,
+      totalBookings,
+      serviceType
+    }) => ({
+      'Customer ID': id,
+      'Name': name,
+      'Email': email,
+      'Phone': phone,
+      'Address': address,
+      'Join Date': new Date(joinDate).toLocaleDateString(),
+      'Booking Status': bookingStatus,
+      'Total Bookings': totalBookings,
+      'Service Type': serviceType
+    }));
+
+    if (exportToExcel(exportData, 'customers-data')) {
+      toast.success('Customers data exported successfully');
+    } else {
+      toast.error('Failed to export customers data');
+    }
+  };
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Customers</h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Manage customer information and accounts
-        </p>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Customers</h1>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            Manage customer information and accounts
+          </p>
+        </div>
+        <button
+          onClick={handleExport}
+          className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+        >
+          <FaFileExcel className="mr-2" />
+          Export to Excel
+        </button>
       </div>
 
       <div className="relative">
@@ -67,7 +97,7 @@ function CustomersPage() {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search by ID, name, email, address, or service type..."
+          placeholder="Search by name, ID, address, or booking status..."
           className="w-full pl-10 pr-4 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white"
         />
         <FaSearch className="absolute left-3 top-3 text-gray-400" />
@@ -77,7 +107,6 @@ function CustomersPage() {
         data={filteredCustomers}
         searchTerm={searchTerm}
         onEdit={handleEdit}
-        onBlock={handleBlock}
         onDelete={handleDelete}
       />
 
