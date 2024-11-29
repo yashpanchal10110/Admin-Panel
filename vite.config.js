@@ -1,17 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [react()],
   build: {
-    minify: 'terser',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'chart-vendor': ['recharts']
-        }
-      }
-    }
-  }
-})
+    outDir: 'site', // Ensure this matches the publish directory in Netlify
+  },
+});
