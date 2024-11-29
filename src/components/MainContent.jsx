@@ -2,8 +2,12 @@ import { Routes, Route } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 import ProvidersPage from '../pages/ProvidersPage';
 import ProviderProfile from '../pages/ProviderProfile';
+import ProviderRequestsPage from '../pages/ProviderRequestsPage';
 import ServicesPage from '../pages/ServicesPage';
 import CustomersPage from '../pages/CustomersPage';
+import CustomerDetailsPage from '../pages/customers/CustomerDetailsPage';
+import TestimonialsPage from '../pages/TestimonialsPage';
+import ReferralPage from '../pages/ReferralPage';
 import Header from './Header';
 
 function MainContent({ sidebarOpen }) {
@@ -14,9 +18,13 @@ function MainContent({ sidebarOpen }) {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/providers" element={<ProvidersPage />} />
+          <Route path="/providers/requests" element={<ProviderRequestsPage />} />
           <Route path="/providers/:id" element={<ProviderProfile />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/customers" element={<CustomersPage />} />
+          <Route path="/customers/:id" element={<CustomerDetailsPage />} />
+          <Route path="/testimonials" element={<TestimonialsPage />} />
+          <Route path="/referrals" element={<ReferralPage />} />
         </Routes>
       </main>
     </div>

@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { FaChartPie, FaUsers, FaCalendar, FaCreditCard, FaChartLine, FaCog, FaChevronDown, FaChevronRight, FaTools, FaUserFriends } from 'react-icons/fa';
+import { FaChartPie, FaUsers, FaCalendar, FaCreditCard, FaChartLine, FaCog, FaChevronDown, FaChevronRight, FaTools, FaUserFriends, FaComments, FaGift, FaClipboardList } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
@@ -11,11 +11,13 @@ const menuItems = [
     icon: FaUsers,
     isDropdown: true,
     subItems: [
-      { name: 'Individual Providers', path: '/providers' },
-      { name: 'Business Providers', path: '/providers/business' },
+      { name: 'All Providers', path: '/providers' },
+      { name: 'Provider Requests', path: '/providers/requests', icon: FaClipboardList },
     ],
   },
   { name: 'Services', icon: FaTools, path: '/services' },
+  { name: 'Testimonials', icon: FaComments, path: '/testimonials' },
+  { name: 'Referrals', icon: FaGift, path: '/referrals' },
   {
     name: 'Bookings',
     icon: FaCalendar,
@@ -96,11 +98,12 @@ function Sidebar({ isOpen }) {
                   key={subItem.path}
                   to={subItem.path}
                   className={({ isActive }) =>
-                    `block px-4 py-2 text-sm rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                    `flex items-center px-4 py-2 text-sm rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 ${
                       isActive ? 'bg-blue-50 dark:bg-gray-700 text-blue-600 dark:text-white' : ''
                     }`
                   }
                 >
+                  {subItem.icon && <subItem.icon className="w-4 h-4 mr-2" />}
                   {subItem.name}
                 </NavLink>
               ))}

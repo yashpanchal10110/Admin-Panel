@@ -1,10 +1,15 @@
 import { Dialog } from '@headlessui/react';
 
-function ProviderModal({ isOpen, onClose, provider, onAccept }) {
+function ProviderModal({ isOpen, onClose, provider, onAccept, onDecline }) {
   if (!isOpen || !provider) return null;
 
   const handleAccept = () => {
     onAccept(provider.id);
+    onClose();
+  };
+
+  const handleDecline = () => {
+    onDecline(provider.id);
     onClose();
   };
 
@@ -49,12 +54,20 @@ function ProviderModal({ isOpen, onClose, provider, onAccept }) {
 
           <div className="mt-6 flex justify-end space-x-3">
             {provider.status === 'pending' && (
-              <button
-                onClick={handleAccept}
-                className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
-              >
-                Accept Request
-              </button>
+              <>
+                <button
+                  onClick={handleAccept}
+                  className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+                >
+                  Accept Request
+                </button>
+                <button
+                  onClick={handleDecline}
+                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+                >
+                  Decline Request
+                </button>
+              </>
             )}
             <button
               onClick={onClose}
@@ -70,3 +83,5 @@ function ProviderModal({ isOpen, onClose, provider, onAccept }) {
 }
 
 export default ProviderModal;
+
+//add a button to the provider to download all the data in excel form 

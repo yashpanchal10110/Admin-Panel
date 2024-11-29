@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import StatsCard from '../components/StatsCard';
-import ProvidersTable from '../components/ProvidersTable';
 import { useProviders } from '../context/ProvidersContext';
 
 const weeklyData = [
@@ -107,8 +106,6 @@ function Dashboard() {
           </LineChart>
         </div>
       </div>
-
-      <ProvidersTable />
     </div>
   );
 }
