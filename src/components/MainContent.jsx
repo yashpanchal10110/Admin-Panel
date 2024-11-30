@@ -4,11 +4,11 @@ import ProvidersPage from '../pages/ProvidersPage';
 import ProviderDetailsPage from '../pages/providers/ProviderDetailsPage';
 import WorkHistoryPage from '../pages/providers/WorkHistoryPage';
 import ProviderRequestsPage from '../pages/ProviderRequestsPage';
-import ServicesPage from '../pages/ServicesPage';
 import CustomersPage from '../pages/CustomersPage';
 import CustomerDetailsPage from '../pages/customers/CustomerDetailsPage';
 import TestimonialsPage from '../pages/TestimonialsPage';
 import ReferralPage from '../pages/ReferralPage';
+import CategoriesPage from '../pages/CategoriesPage';
 import Header from './Header';
 
 function MainContent({ sidebarOpen }) {
@@ -22,7 +22,7 @@ function MainContent({ sidebarOpen }) {
           <Route path="/providers/requests" element={<ProviderRequestsPage />} />
           <Route path="/providers/:id" element={<ProviderDetailsPage />} />
           <Route path="/providers/:id/work-history" element={<WorkHistoryPage />} />
-          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/customers" element={<CustomersPage />} />
           <Route path="/customers/:id" element={<CustomerDetailsPage />} />
           <Route path="/testimonials" element={<TestimonialsPage />} />

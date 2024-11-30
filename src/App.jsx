@@ -6,7 +6,6 @@ import Sidebar from './components/Sidebar';
 import MainContent from './components/MainContent';
 import { ThemeProvider } from './context/ThemeContext';
 import { ProvidersProvider } from './context/ProvidersContext';
-import { ServicesProvider } from './context/ServicesContext';
 import { CustomersProvider } from './context/CustomersContext';
 import { RewardsProvider } from './context/RewardsContext';
 import { ConfigProvider } from './context/ConfigContext';
@@ -40,19 +39,17 @@ function App() {
         <ConfigProvider>
           <RewardsProvider>
             <ProvidersProvider>
-              <ServicesProvider>
-                <CustomersProvider>
-                  <WorkHistoryProvider>
-                    <Router>
-                      <div className="flex h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
-                        <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-                        <MainContent sidebarOpen={sidebarOpen} />
-                      </div>
-                    </Router>
-                    <Toaster position="top-right" />
-                  </WorkHistoryProvider>
-                </CustomersProvider>
-              </ServicesProvider>
+              <CustomersProvider>
+                <WorkHistoryProvider>
+                  <Router>
+                    <div className="flex h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+                      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+                      <MainContent sidebarOpen={sidebarOpen} />
+                    </div>
+                  </Router>
+                  <Toaster position="top-right" />
+                </WorkHistoryProvider>
+              </CustomersProvider>
             </ProvidersProvider>
           </RewardsProvider>
         </ConfigProvider>

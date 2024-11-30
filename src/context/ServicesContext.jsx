@@ -32,7 +32,8 @@ export function ServicesProvider({ children }) {
       
       const key = `${newCategory.name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`;
       current[key] = { 
-        name: newCategory.name, 
+        name: newCategory.name,
+        image: newCategory.image || '',
         items: {},
         createdAt: new Date().toISOString()
       };
@@ -41,7 +42,7 @@ export function ServicesProvider({ children }) {
     });
   };
 
-  const editCategory = (path, newName) => {
+  const editCategory = (path, newData) => {
     setServices(prev => {
       const updated = { ...prev };
       const pathArray = path.split('.');
@@ -52,8 +53,13 @@ export function ServicesProvider({ children }) {
         current = current[segment].items;
       }
       
-      current[key].name = newName;
-      current[key].updatedAt = new Date().toISOString();
+      current[key] = {
+        ...current[key],
+        name: newData.name,
+        image: newData.image || current[key].image,
+        updatedAt: new Date().toISOString()
+      };
+      
       return updated;
     });
   };

@@ -1,35 +1,49 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import ImageUpload from '../common/ImageUpload';
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),
-  mainCategory: yup.string(),
-  parentCategory: yup.string(),
-  icon: yup.string()
+  description: yup.string().required('Description is required'),
+  parentName: yup.string(),
+  image: yup.string(),
+  status: yup.string().oneOf(['active', 'inactive']).required('Status is required')
 }).required();
 
-function ServiceForm({ service, onSubmit, onCancel }) {
+function CategoryForm({ category, onSubmit, onCancel }) {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: service || {}
+    defaultValues: {
+      name: category?.name || '',
+      description: category?.description || '',
+      parentName: category?.parentName || '',
+      image: category?.image || '',
+      status: category?.status || 'active'
+    }
   });
+
+  const currentImage = watch('image');
+
+  const handleImageUpload = (imageUrl) => {
+    setValue('image', imageUrl);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Icon
+          Category Image
         </label>
-        <input
-          type="text"
-          {...register('icon')}
-          placeholder="🔧"
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
+        <ImageUpload 
+          onImageUpload={handleImageUpload}
+          currentImage={currentImage}
         />
       </div>
 
@@ -49,13 +63,16 @@ function ServiceForm({ service, onSubmit, onCancel }) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Main Category
+          Description
         </label>
-        <input
-          type="text"
-          {...register('mainCategory')}
+        <textarea
+          {...register('description')}
+          rows={3}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
         />
+        {errors.description && (
+          <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
+        )}
       </div>
 
       <div>
@@ -64,9 +81,26 @@ function ServiceForm({ service, onSubmit, onCancel }) {
         </label>
         <input
           type="text"
-          {...register('parentCategory')}
+          {...register('parentName')}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
+          placeholder="Enter parent category name"
         />
+        {errors.parentName && (
+          <p className="mt-1 text-sm text-red-600">{errors.parentName.message}</p>
+        )}
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          Status
+        </label>
+        <select
+          {...register('status')}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
+        >
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
       </div>
 
       <div className="flex justify-end space-x-4">
@@ -82,11 +116,11 @@ function ServiceForm({ service, onSubmit, onCancel }) {
           disabled={isSubmitting}
           className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:opacity-50"
         >
-          {isSubmitting ? 'Saving...' : service ? 'Update Service' : 'Add Service'}
+          {isSubmitting ? 'Saving...' : category ? 'Update Category' : 'Add Category'}
         </button>
       </div>
     </form>
   );
 }
 
-export default ServiceForm;
+export default CategoryForm;

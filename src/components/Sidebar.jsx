@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { FaChartPie, FaUsers, FaCalendar, FaCreditCard, FaChartLine, FaCog, FaChevronDown, FaChevronRight, FaTools, FaUserFriends, FaComments, FaGift, FaClipboardList } from 'react-icons/fa';
+import { FaChartPie, FaUsers, FaCalendar, FaCreditCard, FaChartLine, FaCog, FaChevronDown, FaChevronRight, FaUserFriends, FaComments, FaGift, FaClipboardList, FaList } from 'react-icons/fa';
 import { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
@@ -15,7 +15,7 @@ const menuItems = [
       { name: 'Provider Requests', path: '/providers/requests', icon: FaClipboardList },
     ],
   },
-  { name: 'Services', icon: FaTools, path: '/services' },
+  { name: 'Categories', icon: FaList, path: '/categories' },
   { name: 'Testimonials', icon: FaComments, path: '/testimonials' },
   { name: 'Referrals', icon: FaGift, path: '/referrals' },
   {
